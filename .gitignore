@@ -1,0 +1,13 @@
+# OS/editor noise
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Local-only package folders
+node_modules/
+.tmp-pdf-extract/
+
+# Local exports/backups
+*.bak
+*.tmp
