@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Ghost in Machines Checklist Tracker</title>
+    <title>Ghost in Machines | Development Hub</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -11,91 +11,203 @@
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
-    <header class="app-header">
-      <div class="container-xxl py-4">
-        <div class="d-flex flex-column flex-lg-row align-items-lg-end justify-content-between gap-3">
-          <div>
-            <p class="eyebrow mb-2">Unreal Engine 5.7 Production Tracker</p>
-            <h1 class="mb-2">Ghost in Machines</h1>
-            <p class="lead mb-0">Development checklist generated from the provided planning PDF.</p>
+    <header class="top-app-bar">
+      <div class="container-xxl">
+        <nav class="navbar navbar-expand-lg px-0">
+          <a class="navbar-brand" href="#home">
+            <img src="assets/site/ghosts-logo.webp" alt="" width="34" height="34">
+            <span>Ghost in Machines</span>
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#siteNav" aria-controls="siteNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="siteNav">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item"><a class="nav-link" href="#updates">Updates</a></li>
+              <li class="nav-item"><a class="nav-link" href="#roadmap">Roadmap</a></li>
+              <li class="nav-item"><a class="nav-link" href="#tracker">Tracker</a></li>
+              <li class="nav-item"><a class="nav-link" href="#documents">Documents</a></li>
+            </ul>
           </div>
-          <div class="header-meta">
-            <span id="taskSummary">0 / 0 tasks complete</span>
-            <span id="lastSaved">Not saved yet</span>
-          </div>
-        </div>
+        </nav>
       </div>
     </header>
 
-    <main>
-      <section class="progress-band sticky-top">
-        <div class="container-xxl py-3">
-          <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-2 mb-2">
+    <main id="home">
+      <section class="hero-section">
+        <div class="hero-backdrop"></div>
+        <div class="container-xxl hero-content">
+          <div class="hero-copy">
+            <p class="eyebrow">Game in Development</p>
+            <h1>Ghost in Machines</h1>
+            <p class="hero-quote">"There have always been ghosts in the machine. Random segments of code, that have grouped together to form unexpected protocols"</p>
+            <p class="hero-body">A public development hub for updates, concept work, production progress, and the roadmap behind the Unreal Engine survival-maze project.</p>
+            <div class="hero-actions">
+              <a class="btn btn-primary icon-button" href="#updates"><i data-lucide="newspaper"></i><span>Latest Updates</span></a>
+              <a class="btn btn-outline-primary icon-button" href="#tracker"><i data-lucide="list-checks"></i><span>View Progress</span></a>
+            </div>
+          </div>
+          <div class="hero-panel">
+            <img src="assets/site/ghosts-logo.webp" alt="Ghost in Machines logo">
             <div>
-              <div class="progress-title">Overall Progress</div>
-              <div class="progress-detail" id="progressDetail">Each task contributes 0.00%.</div>
-            </div>
-            <div class="progress-percent" id="overallPercent">0%</div>
-          </div>
-          <div class="progress" role="progressbar" aria-label="Overall checklist progress" aria-valuemin="0" aria-valuemax="100">
-            <div class="progress-bar" id="overallBar" style="width: 0%">0%</div>
-          </div>
-        </div>
-      </section>
-
-      <section class="toolbar-band">
-        <div class="container-xxl py-3">
-          <div class="row g-2 align-items-center">
-            <div class="col-12 col-lg-5">
-              <div class="input-group">
-                <span class="input-group-text"><i data-lucide="search"></i></span>
-                <input class="form-control" id="searchInput" type="search" placeholder="Search tasks or phases" aria-label="Search tasks or phases">
-              </div>
-            </div>
-            <div class="col-6 col-md-4 col-lg-2">
-              <select class="form-select" id="statusFilter" aria-label="Filter by status">
-                <option value="all">All statuses</option>
-                <option value="Not Started">Not Started</option>
-                <option value="In Progress">In Progress</option>
-                <option value="Testing">Testing</option>
-                <option value="Complete">Complete</option>
-                <option value="Blocked">Blocked</option>
-              </select>
-            </div>
-            <div class="col-6 col-md-4 col-lg-2">
-              <select class="form-select" id="phaseFilter" aria-label="Filter by phase">
-                <option value="all">All phases</option>
-              </select>
-            </div>
-            <div class="col-12 col-md-4 col-lg-3">
-              <div class="read-only-note">
-                <i data-lucide="eye"></i>
-                <span>Read-only public tracker</span>
-              </div>
+              <span>Alpaca Games Co.</span>
+              <strong>Public Dev Tracker</strong>
             </div>
           </div>
         </div>
       </section>
 
-      <div class="container-xxl py-4">
-        <div class="stats-grid mb-4" id="statsGrid"></div>
-        <div id="phaseList" class="phase-list"></div>
-        <div id="emptyState" class="empty-state d-none">
-          <i data-lucide="search-x"></i>
-          <h2>No matching tasks</h2>
-          <p>Adjust the search or filters.</p>
+      <section class="section-shell" id="updates">
+        <div class="container-xxl">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Development Log</p>
+              <h2>Latest Updates</h2>
+            </div>
+            <span id="updatesSummary">0 updates migrated</span>
+          </div>
+          <div id="updatesList" class="updates-list"></div>
         </div>
-      </div>
+      </section>
+
+      <section class="section-shell" id="roadmap">
+        <div class="container-xxl">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Production Direction</p>
+              <h2>Roadmap Overview</h2>
+            </div>
+          </div>
+          <div class="roadmap-grid">
+            <article class="overview-card">
+              <i data-lucide="compass"></i>
+              <h3>Foundation First</h3>
+              <p>Lock the concept, repo, Unreal project, reusable data, and core architecture before building feature-heavy systems.</p>
+            </article>
+            <article class="overview-card">
+              <i data-lucide="gamepad-2"></i>
+              <h3>Prototype Loop</h3>
+              <p>Build movement, interaction, inventory, survival pressure, world blockout, and first threat encounters in small test maps.</p>
+            </article>
+            <article class="overview-card">
+              <i data-lucide="route"></i>
+              <h3>Vertical Slice</h3>
+              <p>Connect the Safe Zone, Maze, NPCs, machine encounter, event sequence, UI, audio, and death/outcome flow into one playable run.</p>
+            </article>
+            <article class="overview-card">
+              <i data-lucide="rocket"></i>
+              <h3>Steam Path</h3>
+              <p>Only after the slice works, move toward alpha expansion, beta feedback, performance, Steam assets, builds, and launch support.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-shell tracker-shell" id="tracker">
+        <div class="container-xxl">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Read-Only Checklist</p>
+              <h2>Development Progress</h2>
+            </div>
+            <div class="read-only-note">
+              <i data-lucide="eye"></i>
+              <span>Updated manually from checklist data</span>
+            </div>
+          </div>
+
+          <section class="progress-band">
+            <div class="py-3">
+              <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-2 mb-2">
+                <div>
+                  <div class="progress-title">Overall Progress</div>
+                  <div class="progress-detail" id="progressDetail">Each task contributes 0.00%.</div>
+                </div>
+                <div class="progress-percent" id="overallPercent">0%</div>
+              </div>
+              <div class="progress" role="progressbar" aria-label="Overall checklist progress" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar" id="overallBar" style="width: 0%">0%</div>
+              </div>
+              <div class="tracker-meta mt-3">
+                <span id="taskSummary">0 / 0 tasks complete</span>
+                <span id="lastSaved">Updated from checklist data</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="toolbar-band">
+            <div class="py-3">
+              <div class="row g-2 align-items-center">
+                <div class="col-12 col-lg-6">
+                  <div class="input-group">
+                    <span class="input-group-text"><i data-lucide="search"></i></span>
+                    <input class="form-control" id="searchInput" type="search" placeholder="Search tasks or phases" aria-label="Search tasks or phases">
+                  </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                  <select class="form-select" id="statusFilter" aria-label="Filter by status">
+                    <option value="all">All statuses</option>
+                    <option value="Not Started">Not Started</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Testing">Testing</option>
+                    <option value="Complete">Complete</option>
+                    <option value="Blocked">Blocked</option>
+                  </select>
+                </div>
+                <div class="col-6 col-lg-3">
+                  <select class="form-select" id="phaseFilter" aria-label="Filter by phase">
+                    <option value="all">All phases</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <div class="stats-grid my-4" id="statsGrid"></div>
+          <div id="phaseList" class="phase-list"></div>
+          <div id="emptyState" class="empty-state d-none">
+            <i data-lucide="search-x"></i>
+            <h2>No matching tasks</h2>
+            <p>Adjust the search or filters.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-shell" id="documents">
+        <div class="container-xxl">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Planning Sources</p>
+              <h2>Documents</h2>
+            </div>
+          </div>
+          <div class="documents-grid">
+            <a class="document-card" href="Documents/Ghosts In Machines Website Progress Checklist V0.pdf">
+              <i data-lucide="file-text"></i>
+              <span>Website Progress Checklist</span>
+            </a>
+            <a class="document-card" href="Documents/The_24th_GDD_v0.2_Codex_NoGlyph.pdf">
+              <i data-lucide="file-text"></i>
+              <span>Original GDD Draft</span>
+            </a>
+            <a class="document-card" href="Documents/The_24th_Full_Development_to_Steam_Checklist_v0.1.pdf">
+              <i data-lucide="file-text"></i>
+              <span>Full Development to Steam Checklist</span>
+            </a>
+          </div>
+        </div>
+      </section>
     </main>
 
     <footer class="app-footer">
       <div class="container-xxl py-4">
-        <span>Source: <strong id="sourceName">Checklist PDF</strong></span>
+        <span>Source: <strong id="sourceName">Checklist data</strong></span>
       </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="dev-updates.js"></script>
     <script src="checklist-data.js"></script>
     <script src="app.js"></script>
   </body>

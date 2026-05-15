@@ -7,10 +7,14 @@
   const searchInput = document.getElementById('searchInput');
   const statusFilter = document.getElementById('statusFilter');
   const phaseFilter = document.getElementById('phaseFilter');
+  const updates = window.DEV_UPDATES || [];
+  const updatesList = document.getElementById('updatesList');
+  const updatesSummary = document.getElementById('updatesSummary');
 
   init();
 
   function init() {
+    renderUpdates();
     renderPhaseFilter();
     renderStats();
     renderChecklist();
@@ -35,6 +39,40 @@
       option.textContent = phase.title;
       phaseFilter.appendChild(option);
     });
+  }
+
+  function renderUpdates() {
+    if (!updatesList) {
+      return;
+    }
+
+    updatesSummary.textContent = updates.length + ' updates migrated';
+    updatesList.innerHTML = updates.map((update, index) => renderUpdateCard(update, index)).join('');
+  }
+
+  function renderUpdateCard(update, index) {
+    const classes = ['update-card'];
+    if (!update.imageUrl) {
+      classes.push('text-only');
+    }
+    if (index === 0) {
+      classes.push('latest-update');
+    }
+
+    return (
+      '<article class="' + classes.join(' ') + '">' +
+        (update.imageUrl ? '<div class="update-media"><img src="' + escapeHtml(update.imageUrl) + '" alt=""></div>' : '') +
+        '<div class="update-content">' +
+          '<div class="update-meta">' +
+            '<span class="status-chip status-in-progress">' + escapeHtml(update.version) + '</span>' +
+            (update.date ? '<time>' + escapeHtml(update.date) + '</time>' : '') +
+            (index === 0 ? '<span class="latest-chip">Most Recent</span>' : '') +
+          '</div>' +
+          '<h3>' + escapeHtml(update.title) + '</h3>' +
+          (update.body ? '<p>' + escapeHtml(update.body) + '</p>' : '') +
+        '</div>' +
+      '</article>'
+    );
   }
 
   function renderStats() {
