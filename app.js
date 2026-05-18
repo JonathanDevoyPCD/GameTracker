@@ -140,6 +140,8 @@
     const status = normalizeStatus(task.status);
     const complete = isComplete(task);
     const imageUrl = task.imageUrl || '';
+    const taskImageUrl = imageUrl || 'assets/site/ghosts-logo.webp';
+    const imageClasses = ['task-image-src'];
     const classes = ['card', 'task-card'];
     if (complete) {
       classes.push('is-complete');
@@ -149,13 +151,15 @@
     }
     if (imageUrl) {
       classes.push('has-image');
+    } else {
+      imageClasses.push('placeholder-image');
     }
 
     return (
       '<article class="' + classes.join(' ') + '" data-task-card data-task-id="' + task.id + '" data-phase-id="' + phase.id + '" data-phase-title="' + escapeHtml(phase.title).toLowerCase() + '" data-section-title="' + escapeHtml(section.title).toLowerCase() + '" data-task-title="' + escapeHtml(task.title).toLowerCase() + '" data-task-description="' + escapeHtml(task.description || '').toLowerCase() + '" data-status="' + status + '">' +
-        (imageUrl ? '<div class="task-media"><img src="' + escapeHtml(imageUrl) + '" alt=""></div>' : '') +
         '<div class="card-body">' +
           '<div class="task-main">' +
+            '<div class="task-image"><img class="' + imageClasses.join(' ') + '" src="' + escapeHtml(taskImageUrl) + '" alt=""></div>' +
             '<p class="task-title">' + escapeHtml(task.title) + '</p>' +
             renderTaskDescription(task) +
           '</div>' +
