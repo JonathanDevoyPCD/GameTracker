@@ -498,21 +498,54 @@ body {
 }
 
 .phase-section {
-  padding: 1.55rem 0;
-  border-top: 1px solid var(--line);
+  margin-bottom: 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--panel);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.28);
 }
 
 .phase-section:first-child {
-  border-top: 0;
   padding-top: 0;
 }
 
-.phase-header {
+.phase-list.accordion {
+  --bs-accordion-bg: transparent;
+  --bs-accordion-border-color: transparent;
+  --bs-accordion-border-width: 0;
+  --bs-accordion-border-radius: 0;
+  --bs-accordion-inner-border-radius: 0;
+  --bs-accordion-btn-focus-box-shadow: none;
+  --bs-accordion-active-bg: var(--panel-raised);
+  --bs-accordion-active-color: var(--ink);
+}
+
+.accordion-button {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr) auto minmax(180px, 260px);
   gap: 1rem;
-  align-items: start;
-  margin-bottom: 1rem;
+  align-items: center;
+  width: 100%;
+  padding: 1rem;
+  color: var(--ink);
+  background: var(--panel);
+}
+
+.accordion-button:not(.collapsed) {
+  color: var(--ink);
+  background: var(--panel-raised);
+}
+
+.accordion-button::after {
+  grid-column: 4;
+  filter: invert(1);
+}
+
+.accordion-body {
+  padding: 1rem;
+  border-top: 1px solid var(--line);
+  background: #171717;
 }
 
 .phase-title {
@@ -525,17 +558,36 @@ body {
 .phase-count {
   color: var(--muted);
   font-size: 0.95rem;
+  white-space: nowrap;
 }
 
 .phase-progress {
   min-width: 220px;
-  text-align: right;
+  text-align: left;
 }
 
 .phase-progress strong {
   display: block;
   color: var(--accent-dark);
   font-size: 1rem;
+  margin-bottom: 0.35rem;
+}
+
+.phase-intro {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.phase-intro span {
+  padding: 0.35rem 0.65rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.04);
+  font-size: 0.82rem;
+  font-weight: 500;
 }
 
 .section-block {
@@ -807,8 +859,13 @@ body {
     grid-template-columns: 1fr;
   }
 
-  .phase-header {
-    grid-template-columns: 1fr;
+  .accordion-button {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .accordion-button::after {
+    grid-column: 1;
+    justify-self: end;
   }
 
   .phase-progress {

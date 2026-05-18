@@ -91,8 +91,11 @@
 
   function renderChecklist() {
     const taskWeight = getTaskWeight();
-    phaseList.innerHTML = data.phases.map((phase) => {
+    phaseList.classList.add('accordion');
+    phaseList.innerHTML = data.phases.map((phase, phaseIndex) => {
       const phaseStats = getPhaseStats(phase);
+      const collapseId = 'phaseCollapse-' + phase.id;
+      const headingId = 'phaseHeading-' + phase.id;
       const sections = phase.sections.map((section) => {
         const tasks = section.tasks.map((task) => renderTaskCard(task, phase, section, taskWeight)).join('');
         return (
@@ -104,20 +107,28 @@
       }).join('');
 
       return (
-        '<section class="phase-section" data-phase-id="' + phase.id + '">' +
-          '<div class="phase-header">' +
-            '<div>' +
-              '<h2 class="phase-title">' + escapeHtml(phase.title) + '</h2>' +
-              '<div class="phase-count" data-phase-count="' + phase.id + '">' + phaseStats.complete + ' / ' + phaseStats.total + ' tasks complete</div>' +
-            '</div>' +
-            '<div class="phase-progress">' +
-              '<strong data-phase-percent="' + phase.id + '">' + formatPercent(phaseStats.percent) + '</strong>' +
-              '<div class="progress" role="progressbar" aria-label="' + escapeHtml(phase.title) + ' progress" aria-valuemin="0" aria-valuemax="100">' +
-                '<div class="progress-bar" data-phase-bar="' + phase.id + '" style="width: ' + phaseStats.percent + '%">' + formatPercent(phaseStats.percent) + '</div>' +
+        '<section class="phase-section accordion-item" data-phase-id="' + phase.id + '">' +
+          '<h2 class="accordion-header" id="' + headingId + '">' +
+            '<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#' + collapseId + '" aria-expanded="false" aria-controls="' + collapseId + '">' +
+              '<span class="phase-title">' + escapeHtml(phase.title) + '</span>' +
+              '<span class="phase-count" data-phase-count="' + phase.id + '">' + phaseStats.complete + ' / ' + phaseStats.total + ' tasks complete</span>' +
+              '<span class="phase-progress">' +
+                '<strong data-phase-percent="' + phase.id + '">' + formatPercent(phaseStats.percent) + '</strong>' +
+                '<span class="progress" role="progressbar" aria-label="' + escapeHtml(phase.title) + ' progress" aria-valuemin="0" aria-valuemax="100">' +
+                  '<span class="progress-bar" data-phase-bar="' + phase.id + '" style="width: ' + phaseStats.percent + '%">' + formatPercent(phaseStats.percent) + '</span>' +
+                '</span>' +
+              '</span>' +
+            '</button>' +
+          '</h2>' +
+          '<div id="' + collapseId + '" class="accordion-collapse collapse" aria-labelledby="' + headingId + '">' +
+            '<div class="accordion-body">' +
+              '<div class="phase-intro">' +
+                '<span>' + (phaseIndex + 1) + ' of ' + data.phases.length + '</span>' +
+                '<span>' + phaseStats.total + ' checklist items</span>' +
               '</div>' +
+              sections +
             '</div>' +
           '</div>' +
-          sections +
         '</section>'
       );
     }).join('');
