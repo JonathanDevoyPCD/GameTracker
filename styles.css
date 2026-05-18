@@ -694,6 +694,36 @@ body {
   line-height: 1.45;
 }
 
+.task-description p {
+  margin: 0;
+}
+
+.task-description-expandable p {
+  display: none;
+}
+
+.task-description-expandable.is-expanded p {
+  display: block;
+}
+
+.read-more-button {
+  margin-top: 0.55rem;
+  padding: 0;
+  border: 0;
+  color: var(--accent);
+  background: transparent;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.read-more-button:hover,
+.read-more-button:focus {
+  color: var(--accent-dark);
+  text-decoration: underline;
+}
+
 .has-image .task-title {
   color: var(--ink);
   font-size: 1.2rem;

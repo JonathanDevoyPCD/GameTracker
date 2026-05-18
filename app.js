@@ -132,6 +132,8 @@
         '</section>'
       );
     }).join('');
+
+    bindReadMoreButtons();
   }
 
   function renderTaskCard(task, phase, section, taskWeight) {
@@ -150,12 +152,12 @@
     }
 
     return (
-      '<article class="' + classes.join(' ') + '" data-task-card data-task-id="' + task.id + '" data-phase-id="' + phase.id + '" data-phase-title="' + escapeHtml(phase.title).toLowerCase() + '" data-section-title="' + escapeHtml(section.title).toLowerCase() + '" data-task-title="' + escapeHtml(task.title).toLowerCase() + '" data-status="' + status + '">' +
+      '<article class="' + classes.join(' ') + '" data-task-card data-task-id="' + task.id + '" data-phase-id="' + phase.id + '" data-phase-title="' + escapeHtml(phase.title).toLowerCase() + '" data-section-title="' + escapeHtml(section.title).toLowerCase() + '" data-task-title="' + escapeHtml(task.title).toLowerCase() + '" data-task-description="' + escapeHtml(task.description || '').toLowerCase() + '" data-status="' + status + '">' +
         (imageUrl ? '<div class="task-media"><img src="' + escapeHtml(imageUrl) + '" alt=""></div>' : '') +
         '<div class="card-body">' +
           '<div class="task-main">' +
             '<p class="task-title">' + escapeHtml(task.title) + '</p>' +
-            (task.description ? '<p class="task-description">' + escapeHtml(task.description) + '</p>' : '') +
+            renderTaskDescription(task) +
           '</div>' +
           '<div class="task-footer read-only-footer">' +
             '<span class="status-chip status-' + slug(status) + '">' + escapeHtml(status) + '</span>' +
@@ -164,6 +166,36 @@
         '</div>' +
       '</article>'
     );
+  }
+
+  function renderTaskDescription(task) {
+    if (!task.description) {
+      return '';
+    }
+
+    const description = String(task.description);
+    if (description.length <= 10) {
+      return '<p class="task-description">' + escapeHtml(description) + '</p>';
+    }
+
+    return (
+      '<div class="task-description task-description-expandable" data-description-wrap>' +
+        '<p>' + escapeHtml(description) + '</p>' +
+        '<button class="read-more-button" type="button" data-read-more aria-expanded="false">Read more</button>' +
+      '</div>'
+    );
+  }
+
+  function bindReadMoreButtons() {
+    phaseList.querySelectorAll('[data-read-more]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const wrap = button.closest('[data-description-wrap]');
+        const expanded = !wrap.classList.contains('is-expanded');
+        wrap.classList.toggle('is-expanded', expanded);
+        button.textContent = expanded ? 'Read less' : 'Read more';
+        button.setAttribute('aria-expanded', String(expanded));
+      });
+    });
   }
 
   function updateProgress() {
@@ -200,7 +232,7 @@
     let visibleCards = 0;
 
     document.querySelectorAll('[data-task-card]').forEach((card) => {
-      const searchable = [card.dataset.taskTitle, card.dataset.sectionTitle, card.dataset.phaseTitle].join(' ');
+      const searchable = [card.dataset.taskTitle, card.dataset.taskDescription, card.dataset.sectionTitle, card.dataset.phaseTitle].join(' ');
       const matchesQuery = !query || searchable.includes(query);
       const matchesStatus = status === 'all' || card.dataset.status === status;
       const matchesPhase = phaseId === 'all' || card.dataset.phaseId === phaseId;
